@@ -11,4 +11,5 @@ class MainMenu : public Scene{
     ~MainMenu();
 
     void game_logic();
+    void buttons_controller();
 };

@@ -18,13 +18,13 @@ bool Animation::init(){
     SDL_Surface *image = IMG_Load(main_path.c_str());
 
     if(image == NULL){
-        // SDL_IMG_ERROR("Could not load image from path !" << main_path);
+        Log::instance.error("Could not load image from path: '" + main_path + "'!");
     }
 
     main_texture = SDL_CreateTextureFromSurface(Game::instance.main_canvas, image);
 
     if(main_texture == NULL){
-        // SDL_ERROR("Could not create texture from image");
+        Log::instance.error("Could not create texture from image: " + main_path);
         return false;
     }
 
@@ -113,4 +113,3 @@ void Animation::draw(){
 
     SDL_RenderCopyEx(Game::instance.main_canvas, main_texture, imageVector[main_frame] , renderQuad, 0, NULL, flip);
 }
-

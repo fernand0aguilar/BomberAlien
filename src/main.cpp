@@ -9,25 +9,40 @@ int main(int, char**){
   Game::instance.set_properties("BomberAliens",window_size);
 
 
-  //================= MAIN MENU =====================
+  //===================================== MAIN MENU =================================================================
   MainMenu menu("Initial Menu");
+
+  //Menu background Image
   GameObject menuBackground("background");
   ImageComponent menuImage(menuBackground, "menuImage", "assets/sprites/menu_background.png");
   menuBackground.add_component(menuImage);
+
+  // Main menu music
+  Music menu_music(menuBackground, "menu_musicBackground", "assets/music/gm.wav");
+
+  //(Start Button)
+  GameObject menuButtonStart("buttonStart");
+  Animation image_button_start(menuButtonStart, "imageButtonStart", "assets/sprites/buttonStart.png", 448/2, 100, 2);
+  image_button_start.setAnimation("normal", 0, 0);
+  image_button_start.setAnimation("mouseON", 1, 1);
+  menuButtonStart.add_component(image_button_start);
+
+  //Adding GameObjects to menu StageScene
   menu.add_game_object(menuBackground);
+  menu.add_game_object(menuButtonStart);
 
 
-  //================ STAGE 1 =========================
+  // ===================================== STAGE 1 =================================================================
   StageScene stage("Game Stage");
-  GameObject background("background");
-  ImageComponent backgroundImage(background,"imageBackground", "assets/sprites/background.png");
-  background.add_component(backgroundImage);
-  stage.add_game_object(background);
+  GameObject gameMap("map");
+  ImageComponent backgroundImage(gameMap,"map", "assets/sprites/map.png");
+  gameMap.add_component(backgroundImage);
+  stage.add_game_object(gameMap);
 
 
-  // Adding scene to game
+  // Adding scenes to game
   Game::instance.add_scene(menu);
-  Game::instance.add_scene(stage);
+  // Game::instance.add_scene(stage);
 
   //Game Loop
   Game::instance.run();
