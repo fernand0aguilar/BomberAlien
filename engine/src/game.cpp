@@ -195,25 +195,27 @@ bool Game::createWindow(){
 
   bool Game::handle_scene_changes(){
     if(current_state == State::main_loop_change_scene){
+      Log::instance.jumpLine("Handling Scene Manager\n");
       if(current_scene == NULL){
         return false;
-      }else{
-        Log::instance.info("Changing scene: '" + current_scene->name() + "'");
+      }
+      else{
+        if(last_current_scene){
+          last_current_scene->shutdown();
+        }
 
         if(next_scene != NULL){
+          Log::instance.jumpLine("Next scene");
+          Log::instance.info("Changing scene: '" + next_scene->name() + "'");
           current_scene = next_scene;
         }else{
           //Somente na primeira vez.
           next_scene = current_scene;
         }
 
-        if(last_current_scene)
-        last_current_scene->shutdown();
-
         current_scene->init();
 
         current_state = State::main_loop;
-
       }
     }
 

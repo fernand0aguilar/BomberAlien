@@ -97,7 +97,7 @@ std::list <GameObject *> * Scene::get_collide_objects(){
 	 collide_objects.push_back(obj);
     }
 
-    return &collide_objects; 
+    return &collide_objects;
 }
 
 void Scene::clear_collide_objects(){

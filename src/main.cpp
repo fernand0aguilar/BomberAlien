@@ -35,10 +35,10 @@ int main(int, char**){
 
   // ===================================== STAGE 1 =================================================================
   StageScene stage("Game Stage");
-  GameObject gameMap("map");
-  ImageComponent backgroundImage(gameMap,"map", "assets/sprites/map.png");
-  gameMap.add_component(backgroundImage);
-  stage.add_game_object(gameMap);
+  GameObject background_game_map("map");
+  ImageComponent backgroundImage(background_game_map,"map", "assets/sprites/map.png");
+  background_game_map.add_component(backgroundImage);
+  stage.add_game_object(background_game_map);
 
   // Adding scenes to game
   Game::instance.add_scene(menu);
