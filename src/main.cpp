@@ -10,11 +10,12 @@ int main(int, char**){
 
 
   //===================================== MAIN MENU =================================================================
+  Log::instance.jumpLine("Configurando hierarquia de jogo\n");
   MainMenu menu("Initial Menu");
 
   //Menu background Image
   GameObject menuBackground("background");
-  ImageComponent menuImage(menuBackground, "menuImage", "assets/sprites/menu_background.png");
+  ImageComponent menuImage(menuBackground, "menuImage", "assets/sprites/title_flat.jpg");
   menuBackground.add_component(menuImage);
 
   // Main menu music
@@ -28,8 +29,8 @@ int main(int, char**){
   menuButtonStart.add_component(image_button_start);
 
   //Adding GameObjects to menu StageScene
-  menu.add_game_object(menuBackground);
   menu.add_game_object(menuButtonStart);
+  menu.add_game_object(menuBackground);
 
 
   // ===================================== STAGE 1 =================================================================
@@ -39,10 +40,9 @@ int main(int, char**){
   gameMap.add_component(backgroundImage);
   stage.add_game_object(gameMap);
 
-
   // Adding scenes to game
   Game::instance.add_scene(menu);
-  // Game::instance.add_scene(stage);
+  Game::instance.add_scene(stage);
 
   //Game Loop
   Game::instance.run();
