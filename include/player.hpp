@@ -14,8 +14,8 @@ class Player : public Component{
 
 public:
   Player(GameObject &main_game_object, std::string id, AnimationControllerComponent *animC, GameObject &attack_box ):
-  Component(main_game_object, id), animCtrl(animC), walkR(false), walkL(false),
-  jump(false), stand(false), attack(false), damageBool(false), side(false), m_attack_box(&attack_box){}
+  Component(main_game_object, id), animCtrl(animC), walkR(false), walkL(false), walkUp(false), walkDown(false),
+  stand(false), attack(false), damageBool(false), side(false), m_attack_box(&attack_box){}
 
   ~Player();
 
@@ -32,6 +32,15 @@ public:
   void processPos();
   void gravityF();
   bool has_ground();
+
+  void move_right();
+  void move_left();
+  void move_up();
+  void move_down();
+  
+  void define_key_pressed();
+
+
   //void monsterAI(GameObject *obj);
 
   GameObject *player;
@@ -41,11 +50,18 @@ public:
 private:
   const bool RIGHT = true;
   const bool LEFT = false;
+  const bool UP = true;
+  const bool DOWN = false;
+
   AnimationControllerComponent *animCtrl;
   AnimationControllerComponent *monster_controler;
   unsigned int jumptime;
+
   bool walkR;
   bool walkL;
+  bool walkUp;
+  bool walkDown;
+
   bool jump;
   bool stand;
   bool attack;

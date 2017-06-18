@@ -21,7 +21,7 @@ int main(int, char**){
   MainMenu menu("Initial Menu");
 
   //Menu background Image
-  GameObject menuBackground("background");
+  GameObject menuBackground("menuBackground");
   ImageComponent menuImage(menuBackground, "menuImage", "assets/sprites/title_flat.jpg");
   menuBackground.add_component(menuImage);
 
@@ -43,26 +43,6 @@ int main(int, char**){
   // ===================================== STAGE 1 =================================================================
   StageScene stage1("Game Stage");
 
-  /* 555 MAP configurations */
-  GameObject background_game_map("map");
-  ImageComponent backgroundImage(background_game_map,"map", "assets/sprites/map.png");
-  background_game_map.add_component(backgroundImage);
-  stage1.add_game_object(background_game_map);
-
-  GameObject ground_stage1("ground",true,"ground");
-
-  ImageComponent tile1(ground_stage1, "tile1", "assets/sprites/ChãoMap1.png");
-  ImageComponent tile2(ground_stage1, "tile2", "assets/sprites/ChãoMap2.png");
-  ImageComponent tile3(ground_stage1, "tile3", "assets/sprites/ChãoMap3.png");
-  ImageComponent tile4(ground_stage1, "tile4", "assets/sprites/ChãoMap4.png");
-
-  ground_stage1.add_component(tile1);
-  // ground_stage1.add_component(tile2);
-  // ground_stage1.add_component(tile3);
-
-  stage1.add_game_object(ground_stage1);
-
-  /* 555 End of Map configurations */
 
 
   /* 777 Player configurations */
@@ -96,11 +76,23 @@ int main(int, char**){
   player.add_component(player_anim_ctrl);
   player.add_component(player_logic);
 
-  player.main_positionY = 502;
+  player.main_positionY = 520;
+  player.main_positionX = 33;
 
   stage1.add_game_object(player);
   stage1.add_game_object(attack_box);
   /* 777 End of Player configurations */
+
+  /* 555 MAP configurations */
+  GameObject background_game_map("mapBackground");
+  ImageComponent backgroundImage(background_game_map,"background_game_map", "assets/sprites/Background_GAME.png");
+
+  background_game_map.add_component(backgroundImage);
+  stage1.add_game_object(background_game_map);
+
+  GameObject ground_stage1("ground", true, "ground");
+  stage1.add_game_object(ground_stage1);
+  /* 555 End of Map configurations */
 
 
   // ===================================== Adding scenes to game =================================================================
