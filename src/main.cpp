@@ -49,27 +49,27 @@ int main(int, char**){
   background_game_map.add_component(backgroundImage);
   stage1.add_game_object(background_game_map);
 
-  GameObject ground_stage1("ground", true, "ground");
+  GameObject ground_stage1("ground",true,"ground");
 
-  ImageComponent tileSolidBlock(ground_stage1, "tileSolidBlock", "assets/sprites/SolidBlock.png");
+  ImageComponent tile1(ground_stage1, "tile1", "assets/sprites/ChãoMap1.png");
   ImageComponent tile2(ground_stage1, "tile2", "assets/sprites/ChãoMap2.png");
   ImageComponent tile3(ground_stage1, "tile3", "assets/sprites/ChãoMap3.png");
   ImageComponent tile4(ground_stage1, "tile4", "assets/sprites/ChãoMap4.png");
 
-  ground_stage1.add_component(tileSolidBlock);
-  ground_stage1.add_component(tile2);
-  ground_stage1.add_component(tile3);
-  
+  ground_stage1.add_component(tile1);
+  // ground_stage1.add_component(tile2);
+  // ground_stage1.add_component(tile3);
+
   stage1.add_game_object(ground_stage1);
 
   /* 555 End of Map configurations */
 
 
   /* 777 Player configurations */
-  GameObject player("player",true,"player");
+  GameObject player("player", true, "player");
 
   AnimationControllerComponent player_anim_ctrl(player, "animationController");
-  GameObject attack_box("attack_box",true,"attack_box",GameObject::State::disabled);
+  GameObject attack_box("attack_box", true, "attack_box", GameObject::State::disabled);
 
   Animation player_idle(player, "playerIdle", "assets/sprites/hero.png",480/8,49, 8);
   Animation player_running(player, "playerRunning", "assets/sprites/hero_running.png" ,220/4, 46, 4);
