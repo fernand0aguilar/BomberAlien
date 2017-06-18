@@ -1,4 +1,11 @@
 #include "GameCoreIncludes.hpp"
+#include "player.hpp"
+#include "scene.hpp"
+
+#include "components/image.hpp"
+#include "components/animation.hpp"
+#include "components/animation_controller.hpp"
+#include "components/music.hpp"
 
 using namespace engine;
 
@@ -34,15 +41,71 @@ int main(int, char**){
 
 
   // ===================================== STAGE 1 =================================================================
-  StageScene stage("Game Stage");
+  StageScene stage1("Game Stage");
+
+  /* 555 MAP configurations */
   GameObject background_game_map("map");
   ImageComponent backgroundImage(background_game_map,"map", "assets/sprites/map.png");
   background_game_map.add_component(backgroundImage);
-  stage.add_game_object(background_game_map);
+  stage1.add_game_object(background_game_map);
 
-  // Adding scenes to game
+  GameObject ground_stage1("ground", true, "ground");
+
+  ImageComponent tileSolidBlock(ground_stage1, "tileSolidBlock", "assets/sprites/SolidBlock.png");
+  ImageComponent tile2(ground_stage1, "tile2", "assets/sprites/ChãoMap2.png");
+  ImageComponent tile3(ground_stage1, "tile3", "assets/sprites/ChãoMap3.png");
+  ImageComponent tile4(ground_stage1, "tile4", "assets/sprites/ChãoMap4.png");
+
+  ground_stage1.add_component(tileSolidBlock);
+  ground_stage1.add_component(tile2);
+  ground_stage1.add_component(tile3);
+  
+  stage1.add_game_object(ground_stage1);
+
+  /* 555 End of Map configurations */
+
+
+  /* 777 Player configurations */
+  GameObject player("player",true,"player");
+
+  AnimationControllerComponent player_anim_ctrl(player, "animationController");
+  GameObject attack_box("attack_box",true,"attack_box",GameObject::State::disabled);
+
+  Animation player_idle(player, "playerIdle", "assets/sprites/hero.png",480/8,49, 8);
+  Animation player_running(player, "playerRunning", "assets/sprites/hero_running.png" ,220/4, 46, 4);
+  Animation player_attack(player, "playerAttack", "assets/sprites/attack.png" ,825/11, 49, 11);
+  Animation player_damage(player, "playerDamage", "assets/sprites/damage.png" ,800/8, 50, 8);
+
+  player_idle.setDelay(100);
+  player_running.setDelay(100);
+  player_attack.setDelay(30);
+  player_damage.setDelay(100);
+
+  Player player_logic(player, "player_logic", &player_anim_ctrl, attack_box);
+
+  player_anim_ctrl.add_animation("player_idle", player_idle);
+  player_anim_ctrl.add_animation("player_running", player_running);
+  player_anim_ctrl.add_animation("player_attack", player_attack);
+  player_anim_ctrl.add_animation("player_damage", player_damage);
+
+  //Adding componentes to player
+  player.add_component(player_idle);
+  player.add_component(player_running);
+  player.add_component(player_attack);
+  player.add_component(player_damage);
+  player.add_component(player_anim_ctrl);
+  player.add_component(player_logic);
+
+  player.main_positionY = 502;
+
+  stage1.add_game_object(player);
+  stage1.add_game_object(attack_box);
+  /* 777 End of Player configurations */
+
+
+  // ===================================== Adding scenes to game =================================================================
   Game::instance.add_scene(menu);
-  Game::instance.add_scene(stage);
+  Game::instance.add_scene(stage1);
 
   //Game Loop
   Game::instance.run();
