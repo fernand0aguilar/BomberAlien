@@ -43,8 +43,6 @@ int main(int, char**){
   // ===================================== STAGE 1 =================================================================
   StageScene stage1("Game Stage");
 
-
-
   /* 777 Player configurations */
   GameObject player("player", true, "player");
 
@@ -79,6 +77,8 @@ int main(int, char**){
   player.main_positionY = 520;
   player.main_positionX = 33;
 
+  player.set_layer(GameObject::Layer::layer2);
+
   stage1.add_game_object(player);
   stage1.add_game_object(attack_box);
   /* 777 End of Player configurations */
@@ -86,6 +86,7 @@ int main(int, char**){
   /* 555 MAP configurations */
   GameObject background_game_map("mapBackground");
   ImageComponent backgroundImage(background_game_map,"background_game_map", "assets/sprites/Background_GAME.png");
+  background_game_map.set_layer(GameObject::Layer::background);
 
   background_game_map.add_component(backgroundImage);
   stage1.add_game_object(background_game_map);
