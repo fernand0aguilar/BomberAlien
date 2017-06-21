@@ -31,15 +31,15 @@ public:
 
   void processPos();
   void gravityF();
-  bool has_ground();
+  bool is_colliding();
 
   void move_right();
   void move_left();
   void move_up();
   void move_down();
-  
-  void define_key_pressed();
 
+  void define_key_pressed();
+  void store_last_direction();
 
   //void monsterAI(GameObject *obj);
 

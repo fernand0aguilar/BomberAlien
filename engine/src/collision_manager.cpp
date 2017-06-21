@@ -10,9 +10,9 @@ void CollisionManager::getCollisions(std::list <GameObject*> *objects){
   collision_list = objects;
 }
 
-GameObject* CollisionManager::checkCollision(GameObject* game_object,std::string type){
+GameObject* CollisionManager::checkCollision(GameObject* game_object, std::string type){
   for (std::list<GameObject*>::iterator obj = collision_list->begin(); obj != collision_list->end(); ++obj){
-    if((*obj)->type == type && collide(game_object,*obj)){
+    if((*obj)->type == type && collide(game_object, *obj)){
       return (*obj);
     }
   }
@@ -20,7 +20,7 @@ GameObject* CollisionManager::checkCollision(GameObject* game_object,std::string
 }
 
 bool CollisionManager::collide(GameObject* obj1, GameObject* obj2){
-  rect1.x = obj1->main_positionX; 
+  rect1.x = obj1->main_positionX;
   rect1.y = obj1->main_positionY;
   rect1.h = obj1->main_height;
   rect1.w = obj1->main_width;

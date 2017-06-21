@@ -79,11 +79,9 @@ int main(int, char**){
   player.add_component(player_anim_ctrl);
   player.add_component(player_logic);
 
-    player.main_positionY = 499;
-    player.main_positionX = 23;
-
+  player.main_positionY = 499;
+  player.main_positionX = 23;
   //player.set_layer(GameObject::Layer::layer);
-
   /* 777 End of Player configurations */
 
   /* 555 MAP configurations */
@@ -100,9 +98,9 @@ int main(int, char**){
   /* 333 Undestructable blocks configurations */
   Log::instance.jumpLine("Adding Plataforms To MAP");
 
-  GameObject plataform0("plataform0", true, "ground");
-  plataform0.main_positionX = 153;
-  plataform0.main_positionY = 164;
+  GameObject plataform0("plataform0", true, "bloco_indestrutivel");
+  plataform0.main_positionX = 150;
+  plataform0.main_positionY = 160;
 
   ImageComponent img_plataform(plataform0, "plataform0", "assets/sprites/ExplodableBlock.png");
 

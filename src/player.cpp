@@ -5,16 +5,11 @@ float DAMAGE_DELAY = 1000;
 unsigned int damage_time = 0;
 bool attacked = false;
 
-bool canJump = true;
-bool jump = false;
-bool isFalling = false;
-bool isRight = true;
 
+bool isRight = true;
+int lastDirection;
 int maxHeight = 200;
-float gravity = 1;
-float jumpF = 20;
 float moveForce = 4;
-float monster_move = 4;
 float prev_position_y;
 
 float dy = 0;
@@ -26,44 +21,13 @@ bool Player::init(){
 Player::~Player(){}
 
 void Player::update(){
-
   animCtrl->play_animation("player_idle");
+  lastDirection = side;
+
   move_player();
-  attack_player();
   damage();
-  // is_dead();
 
   processPos();
-}
-
-void Player::attack_player(){
-
-  if(side == LEFT){
-    m_attack_box->main_positionX = _main_game_object->main_positionX;
-    m_attack_box->main_positionY = _main_game_object->main_positionY;
-    m_attack_box->main_width = _main_game_object->main_width/2 ;
-    m_attack_box->main_height = _main_game_object->main_height;
-  }
-  if(side == RIGHT){
-    m_attack_box->main_positionX = _main_game_object->main_positionX + _main_game_object->main_width;
-    m_attack_box->main_positionY = _main_game_object->main_positionY;
-    m_attack_box->main_width = _main_game_object->main_width/2 ;
-    m_attack_box->main_height = _main_game_object->main_height;
-  }
-
-  if(Game::instance.keyboard->isKeyDown(SDLK_SPACE)){
-    m_attack_box->setState(GameObject::State::enabled);
-    attack = true;
-  }
-
-  if(Game::instance.keyboard->isKeyUp(SDLK_SPACE)){
-    m_attack_box->setState(GameObject::State::disabled);
-    attack = false;
-  }
-
-  if(attack){
-    animCtrl->play_animation("player_attack");
-  }
 }
 
 // // ============================================== MOVE LOGIC ===================================================
@@ -73,22 +37,40 @@ void Player::move_player(){
 
   if(_main_game_object->main_positionY > 600 || _main_game_object->main_positionY < 0){
     Log::instance.error("Player position Y is BuGGed");
-    _main_game_object->main_positionY = 0;
   }
 
   if(walkR && (_main_game_object->main_positionX + _main_game_object->main_width) < 768){
-    move_right();
+    if(is_colliding() && lastDirection == RIGHT){
+      walkR = false;
+    }
+    else{
+      move_right();
+    }
   }
 
   else if(walkL && (_main_game_object->main_positionX) >= 22){
+    if(is_colliding() && lastDirection == LEFT){
+      walkL = false;
+    }
+    else{
     move_left();
+    }
   }
 
   else if(walkUp && (_main_game_object->main_positionY) >= 30 ){
-    move_up();
+    if(is_colliding() && lastDirection == UP){
+      walkUp = false;
+    }
+    else
+      move_up();
   }
   else if(walkDown && (_main_game_object->main_positionY) < 497){
-    move_down();
+    if(is_colliding() && lastDirection == DOWN){
+      walkDown = false;
+    }
+    else{
+      move_down();
+    }
   }
 }
 
@@ -97,7 +79,7 @@ void Player::move_right(){
   animCtrl->play_animation("player_running");
   side = RIGHT;
   animCtrl->flipping(side);
-  _main_game_object->main_positionX += moveForce;
+    _main_game_object->main_positionX += moveForce;
 }
 
 void Player::move_left(){
@@ -117,7 +99,10 @@ void Player::move_down(){
 void Player::move_up(){
   side = UP;
   animCtrl->play_animation("player_costas");
-  _main_game_object->main_positionY -= moveForce;
+
+  if(!is_colliding()){
+    _main_game_object->main_positionY -= moveForce;
+  }
 }
 
 void  Player::define_key_pressed(){
@@ -151,14 +136,6 @@ void  Player::define_key_pressed(){
   }
 }
 
-// //=========================================== JUMP LOGIC==========================================
-// void Player::jump_player(){
-//   //Player try jump and he can jump
-//   if(Game::instance.keyboard->isKeyDown(SDLK_w) && (dy == 0)){
-//     jump = true;
-//     dy -= jumpF;
-//   }
-// }
 
 void Player::processPos(){
   prev_position_y = _main_game_object->main_positionY;
@@ -166,17 +143,13 @@ void Player::processPos(){
 }
 
 
-bool Player::has_ground(){
-  ground = Game::instance.collision_manager->checkCollision(_main_game_object,"ground");
-  if(ground && dy >= 0 ){
-    if(dy > 5){
-      _main_game_object->main_positionY = ground->main_positionY - _main_game_object->main_height;
-      // prev_position_y -(dy-gravity) ;
-    }
+bool Player::is_colliding(){
+  ground = Game::instance.collision_manager->checkCollision(_main_game_object, "bloco_indestrutivel");
+
+  if(ground){
     return true;
   }
   return false;
-
 }
 
 void Player::damage(){

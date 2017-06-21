@@ -14,13 +14,13 @@ namespace engine{
   public:
 
     CollisionManager();
-    
-    ~CollisionManager();
-    
-    void getCollisions(std::list <GameObject*> *objects);
-    GameObject* checkCollision(GameObject* game_object,std::string type);
-  private:
 
+    ~CollisionManager();
+
+    void getCollisions(std::list <GameObject*> *objects);
+    GameObject* checkCollision(GameObject* game_object, std::string type);
+
+  private:
     bool collide(GameObject* obj1, GameObject* obj2);
     std::list <GameObject*>* collision_list;
 
