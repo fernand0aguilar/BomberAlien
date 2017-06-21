@@ -12,8 +12,8 @@ using namespace engine;
 int main(int, char**){
 
   //Configurando nome e tamanho
-  std::pair<int, int> window_size(800, 600);
-  Game::instance.set_properties("BomberAliens",window_size);
+  std::pair<int, int> window_size(800, 576);
+  Game::instance.set_properties("BomberAliens", window_size);
 
 
   //===================================== MAIN MENU =================================================================
@@ -74,27 +74,42 @@ int main(int, char**){
   player.add_component(player_anim_ctrl);
   player.add_component(player_logic);
 
-  player.main_positionY = 520;
-  player.main_positionX = 33;
+    player.main_positionY = 499;
+    player.main_positionX = 23;
 
-  player.set_layer(GameObject::Layer::layer2);
+  //player.set_layer(GameObject::Layer::layer);
 
-  stage1.add_game_object(player);
-  stage1.add_game_object(attack_box);
   /* 777 End of Player configurations */
 
   /* 555 MAP configurations */
   GameObject background_game_map("mapBackground");
-  ImageComponent backgroundImage(background_game_map,"background_game_map", "assets/sprites/Background_GAME.png");
+  ImageComponent backgroundImage(background_game_map,"background_game_map", "assets/sprites/map_small.png");
   background_game_map.set_layer(GameObject::Layer::background);
-
+  background_game_map.main_width = 800;
+  background_game_map.main_height = 576;
   background_game_map.add_component(backgroundImage);
-  stage1.add_game_object(background_game_map);
 
   GameObject ground_stage1("ground", true, "ground");
-  stage1.add_game_object(ground_stage1);
   /* 555 End of Map configurations */
 
+  /* 333 Undestructable blocks configurations */
+  Log::instance.jumpLine("Adding Plataforms To MAP");
+
+  GameObject plataform0("plataform0", true, "ground");
+  plataform0.main_positionX = 153;
+  plataform0.main_positionY = 164;
+
+  ImageComponent img_plataform(plataform0, "plataform0", "assets/sprites/ExplodableBlock.png");
+
+  plataform0.add_component(img_plataform);
+  stage1.add_game_object(plataform0);
+  Log::instance.jumpLine("333 End of Undestructable blocks configurations ");
+  /* 333 End of Undestructable blocks configurations */
+
+  stage1.add_game_object(player);
+  stage1.add_game_object(attack_box);
+  stage1.add_game_object(ground_stage1);
+  stage1.add_game_object(background_game_map);
 
   // ===================================== Adding scenes to game =================================================================
   Game::instance.add_scene(menu);

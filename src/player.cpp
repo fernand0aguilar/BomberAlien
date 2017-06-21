@@ -13,7 +13,7 @@ bool isRight = true;
 int maxHeight = 200;
 float gravity = 1;
 float jumpF = 20;
-float moveForce = 7;
+float moveForce = 4;
 float monster_move = 4;
 float prev_position_y;
 
@@ -70,19 +70,24 @@ void Player::attack_player(){
 void Player::move_player(){
 
   define_key_pressed();
+  
+  if(_main_game_object->main_positionY > 600 || _main_game_object->main_positionY < 0){
+    Log::instance.error("Player position Y is BuGGed-> '"+ _main_game_object->main_positionY);
+    _main_game_object->main_positionY = 0;
+  }
 
   if(walkR && (_main_game_object->main_positionX + _main_game_object->main_width) < 768){
     move_right();
   }
 
-  else if(walkL && (_main_game_object->main_positionX) >= 32){
+  else if(walkL && (_main_game_object->main_positionX) >= 22){
     move_left();
   }
 
-  else if(walkUp && (_main_game_object->main_positionY) >= 32 ){
+  else if(walkUp && (_main_game_object->main_positionY) >= 30 ){
     move_up();
   }
-  else if(walkDown && (_main_game_object->main_positionY) < 525){
+  else if(walkDown && (_main_game_object->main_positionY) < 497){
     move_down();
   }
 }

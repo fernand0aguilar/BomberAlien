@@ -44,7 +44,6 @@ namespace engine{
             //Check on map and initialize each game object. Return true if success
             virtual bool draw();
 
-           
             std::list<GameObject*> *get_collide_objects();
             void clear_collide_objects();
    //gamelogic

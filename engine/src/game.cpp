@@ -11,7 +11,7 @@ void Game::set_properties(std::string name, std::pair<int, int> window_size){
 }
 
 bool Game::startSDL(){
-  Log::instance.jumpLine("Starting SDL\n");
+
   Log::instance.info("Iniciando video e audio");
 
   if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0){
@@ -36,6 +36,7 @@ bool Game::startSDL(){
   keyboard = new Keyboard();
   collision_manager = new CollisionManager();
   return true;
+
 }
 
 bool Game::createWindow(){
@@ -140,7 +141,6 @@ bool Game::createWindow(){
         timer->set_TimeStep();
       }
 
-      Log::instance.jumpLine("Starting exit process\n");
       Log::instance.info("Cleaning scene...");
       if(current_scene)
       current_scene->shutdown();
@@ -195,27 +195,25 @@ bool Game::createWindow(){
 
   bool Game::handle_scene_changes(){
     if(current_state == State::main_loop_change_scene){
-      Log::instance.jumpLine("Handling Scene Manager\n");
       if(current_scene == NULL){
         return false;
-      }
-      else{
-        if(last_current_scene){
-          last_current_scene->shutdown();
-        }
+      }else{
+        Log::instance.info("Changing scene: '" + current_scene->name() + "'");
 
         if(next_scene != NULL){
-          Log::instance.jumpLine("Next scene");
-          Log::instance.info("Changing scene: '" + next_scene->name() + "'");
           current_scene = next_scene;
         }else{
           //Somente na primeira vez.
           next_scene = current_scene;
         }
 
+        if(last_current_scene)
+        last_current_scene->shutdown();
+
         current_scene->init();
 
         current_state = State::main_loop;
+
       }
     }
 
