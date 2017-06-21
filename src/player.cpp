@@ -70,9 +70,9 @@ void Player::attack_player(){
 void Player::move_player(){
 
   define_key_pressed();
-  
+
   if(_main_game_object->main_positionY > 600 || _main_game_object->main_positionY < 0){
-    Log::instance.error("Player position Y is BuGGed-> '"+ _main_game_object->main_positionY);
+    Log::instance.error("Player position Y is BuGGed");
     _main_game_object->main_positionY = 0;
   }
 
@@ -110,11 +110,13 @@ void Player::move_left(){
 
 void Player::move_down(){
   side = DOWN;
+  animCtrl->play_animation("player_frente");
   _main_game_object->main_positionY += moveForce;
 }
 
 void Player::move_up(){
   side = UP;
+  animCtrl->play_animation("player_costas");
   _main_game_object->main_positionY -= moveForce;
 }
 

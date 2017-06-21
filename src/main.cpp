@@ -49,28 +49,33 @@ int main(int, char**){
   AnimationControllerComponent player_anim_ctrl(player, "animationController");
   GameObject attack_box("attack_box", true, "attack_box", GameObject::State::disabled);
 
-  Animation player_idle(player, "playerIdle", "assets/sprites/hero.png",480/8,49, 8);
-  Animation player_running(player, "playerRunning", "assets/sprites/hero_running.png" ,220/4, 46, 4);
-  Animation player_attack(player, "playerAttack", "assets/sprites/attack.png" ,825/11, 49, 11);
-  Animation player_damage(player, "playerDamage", "assets/sprites/damage.png" ,800/8, 50, 8);
+  Animation player_idle(player, "playerIdle", "assets/sprites/boneco_parado.png", 254/4, 52, 4);
+  Animation player_running(player, "playerRunning", "assets/sprites/boneco_andando.png" , 566/9, 54, 9);
+  Animation player_attack(player, "playerAttack", "assets/sprites/boneco_colocando_bomba.png" ,386/6, 50, 6);
+  Animation player_frente(player, "playerFrente", "assets/sprites/boneco_de_frente.png", 377/6, 48, 6);
+  Animation player_costas(player, "playerCostas", "assets/sprites/boneco_de_costas.png", 383/6, 50, 6);
+
 
   player_idle.setDelay(100);
   player_running.setDelay(100);
-  player_attack.setDelay(30);
-  player_damage.setDelay(100);
+  player_attack.setDelay(300);
+  player_frente.setDelay(100);
+  player_costas.setDelay(100);
 
   Player player_logic(player, "player_logic", &player_anim_ctrl, attack_box);
 
   player_anim_ctrl.add_animation("player_idle", player_idle);
   player_anim_ctrl.add_animation("player_running", player_running);
   player_anim_ctrl.add_animation("player_attack", player_attack);
-  player_anim_ctrl.add_animation("player_damage", player_damage);
+  player_anim_ctrl.add_animation("player_frente", player_frente);
+  player_anim_ctrl.add_animation("player_costas", player_costas);
 
   //Adding componentes to player
   player.add_component(player_idle);
   player.add_component(player_running);
   player.add_component(player_attack);
-  player.add_component(player_damage);
+  player.add_component(player_frente);
+  player.add_component(player_costas);
   player.add_component(player_anim_ctrl);
   player.add_component(player_logic);
 
