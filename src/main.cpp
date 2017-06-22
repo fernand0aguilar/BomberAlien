@@ -1,5 +1,6 @@
 #include "GameCoreIncludes.hpp"
 #include "player.hpp"
+
 #include "scene.hpp"
 
 #include "components/image.hpp"
@@ -55,10 +56,9 @@ int main(int, char**){
   Animation player_frente(player, "playerFrente", "assets/sprites/boneco_de_frente.png", 377/6, 48, 6);
   Animation player_costas(player, "playerCostas", "assets/sprites/boneco_de_costas.png", 383/6, 50, 6);
 
-
   player_idle.setDelay(100);
   player_running.setDelay(100);
-  player_attack.setDelay(300);
+  player_attack.setDelay(400);
   player_frente.setDelay(100);
   player_costas.setDelay(100);
 
@@ -83,6 +83,7 @@ int main(int, char**){
   player.main_positionX = 23;
   //player.set_layer(GameObject::Layer::layer);
   /* 777 End of Player configurations */
+
 
   /* 555 MAP configurations */
   GameObject background_game_map("mapBackground");

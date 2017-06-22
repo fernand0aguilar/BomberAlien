@@ -26,8 +26,21 @@ void Player::update(){
 
   move_player();
   damage();
-
+  attack_player();
   processPos();
+}
+
+void Player::attack_player(){
+
+    if(Game::instance.keyboard->isKeyDown(SDLK_SPACE)){
+	    attack = true;
+    }
+    if(Game::instance.keyboard->isKeyUp(SDLK_SPACE)){
+      attack = false;
+    }
+    if(attack){
+      animCtrl->play_animation("player_attack");
+    }
 }
 
 // // ============================================== MOVE LOGIC ===================================================
